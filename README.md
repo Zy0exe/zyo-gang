@@ -11,9 +11,9 @@ How-To-Install:
 
 1 - Download the file
 
-2 - drag n drop the folder zyo_gang in resources
+2 - drag n drop the folder zyo-gang in resources
 
-3 - add to server.cfg or resources.cfg "start zyo_gang" without the ""
+3 - add to server.cfg or resources.cfg "start zyo-gang" without the ""
 
 4 - Enjoy $$
 
