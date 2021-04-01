@@ -31,8 +31,8 @@ AddEventHandler('ZyoCore:Client:OnGangUpdate', function(GangInfo)
 end)
 
 
-RegisterNetEvent('zyo_gangaim:aim')
-AddEventHandler('zyo_gangaim:aim', function()
+RegisterNetEvent('zyo_gang:aim')
+AddEventHandler('zyo_gang:aim', function()
 
 local LocalPlayer = GetPlayerPed(-1)
 	
@@ -64,7 +64,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
         if IsControlJustPressed(1, 25) then 
-            TriggerEvent( 'zyo_gangaim:aim', source )
+            TriggerEvent( 'zyo_gang:aim', source )
         end
     end
 end)
