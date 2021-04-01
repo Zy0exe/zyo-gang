@@ -34,30 +34,36 @@ end)
 RegisterNetEvent('zyo_gang:aim')
 AddEventHandler('zyo_gang:aim', function()
 
+-- Get Local_PLayer
 local LocalPlayer = GetPlayerPed(-1)
+
+-- Weapons That can actually be used with the animation
+-- Thank you Jerico ❤️
+local weapons = { "weapon_pistol", "weapon_combatpistol", "weapon_appistol", "weapon_pistol50", "weapon_snspistol", "weapon_microsmg" }
 	
 -- Configured for qb-gangs --
 if PlayerGang.name == 'bloods' or PlayerGang.name == 'mafia' or PlayerGang.name == 'cartel' or PlayerGang.name == 'groove' then
-
-    if (DoesEntityExist(LocalPlayer) and not IsEntityDead(LocalPlayer)) then 
-		if IsPedArmed(PlayerPedId(), 4) then
-			Citizen.CreateThread(function()
-				RequestAnimDict("combat@aim_variations@1h@gang")
-					while (not HasAnimDictLoaded("combat@aim_variations@1h@gang")) do 
-						Citizen.Wait(100)
-					end
-
-					if IsEntityPlayingAnim(LocalPlayer, "combat@aim_variations@1h@gang", "aim_variation_a", 3) then
-							ClearPedSecondaryTask(LocalPlayer)
-								SetEnableHandcuffs(LocalPlayer, false)
-						else
-							SetEnableHandcuffs(LocalPlayer, true)
-								TaskPlayAnim(LocalPlayer, "combat@aim_variations@1h@gang", "aim_variation_a", 8.0, 2.5, -1, 49, 0, 0, 0, 0)
-						end 
-				end)
-			end
-		end	
-	end	
+    if(DoesEntityExist(LocalPlayer) and not IsEntityDead(LocalPlayer)) then
+        for k,v in ipairs(weapons) do
+            if GetSelectedPedWeapon(LocalPlayer) == GetHashKey(v) then
+                Citizen.CreateThread(function()
+                    RequestAnimDict("combat@aim_variations@1h@gang")
+                        while (not HasAnimDictLoaded("combat@aim_variations@1h@gang")) do 
+                            Citizen.Wait(100)
+                        end
+    
+                        if IsEntityPlayingAnim(LocalPlayer, "combat@aim_variations@1h@gang", "aim_variation_a", 3) then
+                                ClearPedSecondaryTask(LocalPlayer)
+                                    SetEnableHandcuffs(LocalPlayer, false)
+                            else
+                                SetEnableHandcuffs(LocalPlayer, true)
+                                    TaskPlayAnim(LocalPlayer, "combat@aim_variations@1h@gang", "aim_variation_a", 8.0, 2.5, -1, 49, 0, 0, 0, 0)
+                            end 
+                    end)
+                end
+            end
+        end
+    end
 end)
 
 Citizen.CreateThread(function()
